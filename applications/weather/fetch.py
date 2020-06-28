@@ -13,9 +13,9 @@ apikey = config.get('OPENWEATHERMAP', 'APIKEY')
 lat = config.get('OPENWEATHERMAP', 'LAT')
 lon = config.get('OPENWEATHERMAP', 'LON')
 
-log = logging.getLogger("a.b")
+log = logging.getLogger("weather.fetch")
 
-apiurl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minute&appid=" + apikey + "&units=metric"
+apiurl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minute&appid=" + apikey + "&units=metric&lang=de"
 log.debug(apiurl)
 
 # Fetching data
