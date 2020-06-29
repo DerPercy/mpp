@@ -2,3 +2,4 @@ config.ini
 applications/weather/data/*.json
 
 **/__pycache__/
+*.pyc

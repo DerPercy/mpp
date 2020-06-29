@@ -1,6 +1,8 @@
 import configparser
 import logging
 import urllib.request
+from datetime import datetime
+
 
 
 logging.basicConfig(level=logging.DEBUG, format='%(message)s')
@@ -23,6 +25,8 @@ contents = urllib.request.urlopen(apiurl).read()
 #contentString = bytes(contents,'utf-8')
 #log.debug(contents)
 
-file1 = open("./data/data.json","wb")
+dt_object = datetime.now()
+
+file1 = open("./data/"+dt_object.strftime("%Y%m%d_%H%M")+".json","wb")
 file1.write(contents) 
 file1.close() 
