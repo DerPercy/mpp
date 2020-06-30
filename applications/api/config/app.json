@@ -1,0 +1,15 @@
+{
+"api": {
+    "http": {
+        
+    },
+    "console": {
+        
+    }
+},
+"storage": {
+    "database": {
+        "type": "database"
+    }
+}
+}
