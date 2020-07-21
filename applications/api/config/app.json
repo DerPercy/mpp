@@ -1,15 +1,59 @@
 {
 "api": {
     "http": {
-        
+			"login": {
+				"type": "auth",
+				"security": "default"
+			},
+			"changePassword": {
+				"security": "default",
+				"type": "storage.update",
+				"database": {
+					"id": "dbdefault",
+					"table": "users",
+					"set": {
+						"password": "parameter"
+					},
+					"where": {
+						"password": {
+							"security": "default",
+							"parameter": "email"
+						}
+					}
+				}
+			}
     },
     "console": {
-        
+			"createUser": {
+				"type": "entity.create",
+        "entity": "users"
+			}
     }
 },
-"storage": {
-    "database": {
-        "type": "database"
+"security": {
+	"default": {
+		"parameters": {
+			"email": {
+				"target": "user.email"
+			},
+			"password": {
+				"target": "user.password"
+			}
+		}
+	}
+},
+"entities": {
+  "users": {
+    "storage": "dbdefault",
+    "schema": {
+      "email": { "type": "string", "unique": true },
+      "password": { "type": "password" }
     }
+  }
+},
+"storage": {
+  "dbdefault": {
+    "type": "database"
+  }
 }
 }

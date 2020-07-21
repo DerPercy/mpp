@@ -1,0 +1,3 @@
+
+class AbstractProcessor:
+	pass
