@@ -10,6 +10,7 @@ https://coderwall.com/p/lt2kew/python-creating-your-project-structure
 
 ## Install kivy
 python -m pip install kivy
+sudo apt-get install python3-sdl2
 
 ### Error: error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
 Solution: sudo apt install libglew-dev

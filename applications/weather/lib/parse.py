@@ -14,17 +14,17 @@ class Parser:
 		self.jsonData = json.loads(content)
 		self.hourlyList = WeatherDataList(self.jsonData["hourly"])
 		self.dailyList = WeatherDataDailyList(self.jsonData["daily"],self.jsonData["hourly"])
-		
+
 	def uiTime(self):
 		dt_object = datetime.fromtimestamp(self.jsonData["current"]["dt"])
 		return dt_object.strftime("%H:%M")
-	
+
 	def hourly(self):
 		return self.hourlyList
-    
+
 	def daily(self):
 		return self.dailyList
-	
+
 def parseFile(f):
 	contents =f.read()
 	return Parser(contents)
@@ -35,13 +35,14 @@ def parseFile(f):
 class WeatherDataDailyList:
 	jsonDataList = None
 	jsonDataHourlyList = None
-	
+
 	def __init__(self,jsonDataList,jsonDataHourlyList):
 		log.debug("Init WeatherDataDailyList")
 		self.jsonDataList = jsonDataList
 		self.jsonDataHourlyList = jsonDataHourlyList
-	
+
 	def each(self,_callback):
+		index = 0
 		for jsonData in self.jsonDataList:
 			dt_daily = datetime.fromtimestamp(jsonData["dt"])
 			jdHourly = []
@@ -50,9 +51,10 @@ class WeatherDataDailyList:
 				if dt_hourly.date() == dt_daily.date():
 					jdHourly.append(jdh)
 			wdd = WeatherDataDaily(jsonData,WeatherDataList(jdHourly))
-			_callback(wdd)
-		
-	
+			_callback(wdd,index)
+			index = index + 1
+
+
 class WeatherDataDaily:
 	jsonData = None
 	weatherDataHourlyList = None
@@ -92,8 +94,8 @@ class WeatherDataList:
 		log.debug(len(self.weatherDataList))
 		for wdl in self.weatherDataList:
 			_callback(wdl)
-	
-		
+
+
 class WeatherData:
 	jsonData = []
 	def __init__(self,jsonData):

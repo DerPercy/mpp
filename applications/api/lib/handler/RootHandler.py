@@ -1,7 +1,7 @@
 from .AbstractHandler import AbstractHandler
 import abc
 import logging
-#from .processor.Processor import AbstractProcessor
+from .processor.Processor import AbstractProcessor
 from .processor.Processor import StorageCreateProcessor
 from .storage.Storage import DatabaseStorage
 
@@ -48,14 +48,16 @@ class ApiHandler(AbstractHandler):
 		return self.consoleHandler
 
 class AbstractRequestHandler(AbstractHandler):
+	processor = {}
 	def request(self,key,parameter):
-		print("Request")
+		proc = self.getProcessor(key)
+		proc.process(parameter)
+
 	def read_json_data(self,jsonData):
 		for key in jsonData:
-			if jsonData[key]["type"] == "storage.create":
-				StorageCreateProcessor(jsonData[key])
-			else:
-				print("Unknown processor for "+key)
+			self.processor[key] = AbstractProcessor(jsonData[key],self.rootHandler)
+	def getProcessor(self,key):
+		return self.processor[key]
 
 class ConsoleHandler(AbstractRequestHandler):
 	pass

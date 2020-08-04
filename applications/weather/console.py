@@ -12,14 +12,14 @@ jsonFile.close()
 
 def printHourly(hour):
 	print(hour.uiTime()+": "+hour.uiTemp()+" "+hour.uiDescription())
-	
-def printDaily(daily):
+
+def printDaily(daily,index):
     print("Daily forecast: "+daily.uiDate() +"          "+daily.uiTempMax()+"/"+daily.uiTempMin()+" - "+daily.uiDescription())
     print("")
     daily.hourly().each(printHourly)
     print("")
     print("")
-    
+
 print(parsedFile.uiTime())
 
 
